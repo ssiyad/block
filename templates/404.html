@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Not found · {{ config.title }}</title>
+{% endblock %}
+
+{% block main_class %}lost{% endblock %}
+
+{% block main %}
+  {% set posts_section = get_section(path=config.extra?.posts_section or "_index.md") %}
+
+  <div class="island lost-card rise">
+    <div class="mark lost-code" aria-hidden="true">
+      <span>404</span>{{ <scribble_svg /> }}
+    </div>
+    <h1>This page wandered off.</h1>
+    <p>
+      It might have been renamed, moved, or never existed. The posts are still
+      where they were.
+    </p>
+    <div class="lost-actions">
+      <a class="btn" href="{{ config.base_url }}">Back home</a>
+      {% if posts_section.path != "/" %}
+        <a class="btn btn-ghost" href="{{ posts_section.permalink }}"
+          >All posts</a
+        >
+      {% endif %}
+    </div>
+  </div>
+
+  {% if posts_section.pages %}
+    <div class="suggest rise" style="--i: 2">
+      <p class="kicker">Maybe you wanted</p>
+      <ul>
+        {% for post in posts_section.pages[:3] %}
+          <li>
+            <a href="{{ post.permalink }}">
+              <span>{{ post.title }}</span>
+              {% if post.date %}
+                <span class="meta">{{ post.year }}</span>
+              {% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}
