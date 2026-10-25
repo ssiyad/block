@@ -1,5 +1,5 @@
 name = "Block"
-description = "Blog focused theme for Zola, in the Acid Citric colors"
+description = "Blog focused theme for Zola: paper islands over grain, in the Acid Citric and Lactic colors"
 homepage = "https://github.com/ssiyad/block"
 license = "GPLv3"
 min_version = "0.23.0"
@@ -10,18 +10,48 @@ name = "Sabu Siyad"
 homepage = "https://ssiyad.com"
 
 # An optional tags to allow quick search
-tags = []
+tags = ["blog", "dark", "light", "tailwind", "search"]
 
 # Any variable there can be overridden in the end user `config.toml`
 # You don't need to prefix variables by the theme name but as this will
 # be merged with user data, some kind of prefix or nesting is preferable
 # Use snake_casing to be consistent with the rest of Zola
 [extra]
+# auto follows the system; citric (dark) or lactic (light) pins one flavour
+flavor = "auto"
+# The section listed on the home page, the search page and the 404 page
+posts_section = "posts/_index.md"
+# How many posts the home page lists
+home_posts = 7
+menu = [
+  { name = "Home", url = "/" },
+  { name = "Posts", url = "/posts/" },
+]
 
 [extra.intro]
-heading = "Blog theme for Zola, in Acid Citric"
-subheading = "Thoughts, stories and ideas."
-avatar_url = "https://picsum.photos/200"
+kicker = ""
+greeting = "Hello, I am"
+name = ""
+# Inline markdown
+role = ""
+# Leave empty for an intro without the photo plate
+avatar_url = ""
+plate_label = ""
+links = []
+
+# Fetched from the public GitHub API at build time. Leave username empty to hide the card.
+# Set GITHUB_TOKEN in the build environment to avoid the unauthenticated rate limit.
+[extra.github]
+username = ""
+# Repositories to list, as { name, note }. Empty lists the three most recently pushed.
+repos = []
+
+# Fetched from the public Bluesky API at build time. Leave empty to hide the card.
+[extra.bluesky]
+handle = ""
 
 [extra.footer]
+# Inline markdown
 license_text = ""
+# With GITHUB_SHA or COMMIT_REF set at build time, the footer links the commit here
+source_url = ""

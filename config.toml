@@ -3,6 +3,7 @@ base_url = "/"
 
 # Title of the site
 title = "Musings of a Curious Mind"
+description = "Blog theme for Zola, in Acid Citric and Lactic."
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
@@ -10,18 +11,50 @@ compile_sass = false
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
+# Atom feed of every dated page, linked from the posts index
+generate_feeds = true
+
 [markdown.highlighting]
-# Syntax highlighting theme. See https://github.com/getzola/giallo#built-in
-theme = "gruvbox-dark-medium"
+# Syntax highlighting themes. See https://github.com/getzola/giallo#built-in
+light_theme = "gruvbox-light-medium"
+dark_theme = "gruvbox-dark-medium"
 
 [extra]
-# Put all your custom variables here
+# auto follows the system; citric or lactic pins one flavour
+flavor = "auto"
+posts_section = "posts/_index.md"
+home_posts = 7
+
+menu = [
+  { name = "Home", url = "/" },
+  { name = "Posts", url = "/posts/" },
+  { name = "Projects", url = "/projects/" },
+  { name = "Search", url = "/search/" },
+]
 
 [extra.intro]
-heading = "Blog theme for Zola, in Acid Citric"
-subheading = "Thoughts, stories and ideas."
-avatar_url = "https://picsum.photos/200"
+kicker = "Block for Zola"
+greeting = "Hello, I am"
+name = "Block"
+role = "A blog theme in [Acid](https://github.com/acid-theme/acid) colours."
+avatar_url = "https://picsum.photos/id/1015/600/600"
+plate_label = "Plate I"
+links = [
+  { name = "GitHub", url = "https://github.com/ssiyad/block" },
+  { name = "Zola", url = "https://www.getzola.org/" },
+  { name = "Acid", url = "https://github.com/acid-theme/acid" },
+]
+
+[extra.github]
+username = "ssiyad"
+repos = [
+  { name = "block", note = "Zola theme" },
+  { name = "acid-theme/acid", note = "palette" },
+]
+
+[extra.bluesky]
+handle = "ssiyad.com"
 
 [extra.footer]
-license_text = "The content under this site is MIT licensed."
-
+license_text = "The content for this site is [CC-BY-SA](https://creativecommons.org/licenses/by-sa/4.0/). The [code](https://github.com/ssiyad/block) is [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)."
+source_url = "https://github.com/ssiyad/block"
