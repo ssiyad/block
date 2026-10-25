@@ -1,0 +1,30 @@
+{#
+  Years with post counts. On a paginated section each year links to the
+  page holding its first post: posts are newest first, so that is the count
+  of posts in the years listed before it.
+#}
+{% set years = [p.year for p in all if p.date] | unique %}
+{% if years %}
+  <ul class="side-list" aria-label="Years">
+    {% for year in years %}
+      {% set count = [p for p in all if p.date and p.year == year] | length %}
+      {% if paged %}
+        {% set before = years[:loop.index0] %}
+        {% set first = [p for p in all if p.date and p.year in before] | length %}
+        {% set number = first // paginator.paginate_by + 1 %}
+        {% set url = paginator.first if number == 1 else paginator.base_url ~ number ~ "/" %}
+      {% else %}
+        {% set url = "" %}
+      {% endif %}
+      <li>
+        {% if year in shown_years %}
+          <a href="{{ url }}#y-{{ year }}" aria-current="true"
+            >{{ year }} · {{ count }}</a
+          >
+        {% else %}
+          <a href="{{ url }}#y-{{ year }}">{{ year }} · {{ count }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

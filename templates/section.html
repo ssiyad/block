@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>{{ section.title or "Posts" }} · {{ config.title }}</title>
+{% endblock %}
+
+{% block description %}{{ section.description or config.description or "" }}{% endblock %}
+
+{% block main_class %}archive{% endblock %}
+
+{% block main %}
+  {% set all = section.pages %}
+  {% set paged = paginator is defined %}
+  {% set shown = paginator.pages if paged else all %}
+  {% set shown_years = [p.year for p in shown if p.date] | unique %}
+
+  <div class="archive-side rise" style="--i: 1">
+    <h1 class="page-title">{{ section.title or "Posts" }}</h1>
+    <p class="archive-blurb">
+      {% set dated = [p for p in all if p.date] %}
+      {% if dated %}
+        {{ all | length }}
+        {{ "post" if all | length == 1 else "posts" }} since
+        {{ dated[-1].year }}.
+      {% endif %}
+      {{ section.description or "" }}
+    </p>
+    {% include "partials/year_nav.html" %}
+    {% if config.generate_feeds %}
+      <a class="btn" href="{{ get_url(path=config.feed_filenames[0]) }}"
+        >RSS feed</a
+      >
+    {% endif %}
+  </div>
+
+  <div class="archive-main">
+    <div class="island years rise" style="--i: 2">
+      {% for year in shown_years %}
+        <section class="year" id="y-{{ year }}" aria-label="{{ year }}">
+          <h2 class="year-label">{{ year }}</h2>
+          <ul>
+            {% for post in [p for p in shown if p.date and p.year == year] %}
+              <li>
+                {{ <post_row post={post} date_format="%b %d" i={loop.index0} /> }}
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endfor %}
+      {% set undated = [p for p in shown if not p.date] %}
+      {% if undated %}
+        <section class="year" aria-label="Undated">
+          <h2 class="year-label">—</h2>
+          <ul>
+            {% for post in undated %}
+              <li>{{ <post_row post={post} /> }}</li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+    </div>
+    {% if paged and paginator.number_pagers != 1 %}
+      {% include "partials/pager.html" %}
+    {% endif %}
+  </div>
+{% endblock %}

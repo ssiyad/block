@@ -1,0 +1,34 @@
+<nav class="pager rise" style="--i: 3" aria-label="Pagination">
+  <div class="island pill">
+    <ul>
+      <li>
+        {% if paginator.previous %}
+          <a href="{{ paginator.previous }}" rel="prev">Newer</a>
+        {% else %}
+          <span class="disabled">Newer</span>
+        {% endif %}
+      </li>
+      <li class="sep" aria-hidden="true"></li>
+      {% for number in range(start=1, end=paginator.number_pagers + 1) %}
+        {% set url = paginator.first if number == 1 else paginator.base_url ~ number ~ "/" %}
+        <li>
+          {% if number == paginator.current_index %}
+            <a class="mark mark-circle" href="{{ url }}" aria-current="page">
+              {{ number }}{{ <circle_svg /> }}
+            </a>
+          {% else %}
+            <a href="{{ url }}">{{ number }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      <li class="sep" aria-hidden="true"></li>
+      <li>
+        {% if paginator.next %}
+          <a href="{{ paginator.next }}" rel="next">Older</a>
+        {% else %}
+          <span class="disabled">Older</span>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+</nav>
