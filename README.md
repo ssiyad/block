@@ -41,7 +41,7 @@ You can use the following variables in your `config.toml`.
 
 ```toml
 [extra.intro]
-heading = "Blog/Black theme for Zola"
+heading = "Blog theme for Zola, in Acid Citric"
 subheading = "Thoughts, stories and ideas."
 avatar_url = "https://picsum.photos/200"
 

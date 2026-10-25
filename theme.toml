@@ -1,5 +1,5 @@
 name = "Block"
-description = "Blog/Black theme for Zola"
+description = "Blog focused theme for Zola, in the Acid Citric colors"
 homepage = "https://github.com/ssiyad/block"
 license = "GPLv3"
 min_version = "0.23.0"
@@ -19,7 +19,7 @@ tags = []
 [extra]
 
 [extra.intro]
-heading = "Blog/Black theme for Zola"
+heading = "Blog theme for Zola, in Acid Citric"
 subheading = "Thoughts, stories and ideas."
 avatar_url = "https://picsum.photos/200"
 
