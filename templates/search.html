@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{#
+  Search over the posts section, in the browser. Every post is rendered
+  with its text in data-text; block.js hides the ones that do not match.
+  No Zola search index is needed.
+#}
+
+{% block title %}
+  <title>{{ page.title }} · {{ config.title }}</title>
+{% endblock %}
+
+{% block main_class %}stack narrow{% endblock %}
+
+{% block main %}
+  {% set posts_section = get_section(path=config.extra?.posts_section or "_index.md") %}
+  {% set posts = posts_section.pages %}
+
+  <form class="island search-box rise" role="search" data-search>
+    <label class="kicker" for="q">Search the archive</label>
+    <input
+      class="search-input"
+      id="q"
+      name="q"
+      type="search"
+      placeholder="A word from a title or a post…"
+      autocomplete="off"
+    />
+    <p class="meta" data-search-count aria-live="polite">
+      {{ posts | length }} posts
+    </p>
+  </form>
+
+  <div class="island results rise" style="--i: 1">
+    {% for post in posts %}
+      {% set text = post.title ~ " " ~ (post.description or "") ~ " " ~ (post.content | striptags) %}
+      <a class="row" href="{{ post.permalink }}" data-text="{{ text | lower }}">
+        <span>
+          <span class="row-title">{{ post.title }}</span>
+          <span class="row-excerpt"
+            ><span>{{ <excerpt post={post} length={160} /> }}</span></span
+          >
+        </span>
+        {% if post.date %}
+          <time class="meta" datetime="{{ post.date }}">
+            {{ post.date | date(format="%B %d, %Y") }}
+          </time>
+        {% endif %}
+      </a>
+    {% endfor %}
+    <p class="empty" data-search-empty hidden>
+      Nothing here yet. Try a shorter word.
+    </p>
+  </div>
+{% endblock %}
