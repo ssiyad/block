@@ -1,0 +1,13 @@
+{#
+  The page title. `extra.mark = "word"` in the front matter circles the
+  first match of that word by hand.
+#}
+{% set word = page.extra?.mark or "" %}
+{% if word and word in page.title %}
+  {% set parts = page.title | split(pat=word) %}
+  {{ parts[0] }}<span class="mark mark-circle"
+    >{{ word }}{{ <circle_svg width={2} /> }}</span
+  >{{ parts[1:] | join(sep=word) }}
+{% else %}
+  {{ page.title }}
+{% endif %}

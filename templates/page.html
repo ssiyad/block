@@ -1,17 +1,48 @@
-{% extends "base_layout.html" %}
+{% extends "base.html" %}
 
 {% block title %}
-  <title>{{ page.title }} - {{ config.title }}</title>
+  <title>{{ page.title }} · {{ config.title }}</title>
 {% endblock %}
 
+{% block description %}{{ page.description or config.description or "" }}{% endblock %}
+
+{% block progress %}
+  <div class="progress" data-progress aria-hidden="true"></div>
+{% endblock %}
+
+{% block main_class %}post-layout{% endblock %}
+
 {% block main %}
-  <div>
-    <div class="text-xl font-semibold mb-1 text-brand font-head">
-      {{ page.title }}
+  {% set parent = get_section(path=page.ancestors[-1], metadata_only=true) %}
+  {% set at_root = page.ancestors | length == 1 %}
+
+  <aside class="post-side rise" style="--i: 2">
+    <a class="back" href="{{ parent.permalink }}">
+      ← {{ "Home" if at_root else "All " ~ (parent.title or "posts") | lower }}
+    </a>
+    {% if page.toc %}
+      <p class="kicker">On this page</p>
+      <ul class="side-list toc" data-toc>
+        {% for heading in page.toc %}
+          <li><a href="#{{ heading.id }}">{{ heading.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <p class="meta">{{ page.reading_time }} min read</p>
+  </aside>
+
+  <article class="island article rise" style="--i: 1">
+    <div class="article-inner">
+      {% if page.date %}
+        <p class="kicker">
+          <time datetime="{{ page.date }}"
+            >{{ page.date | date(format="%B %d, %Y") }}</time
+          >
+        </p>
+      {% endif %}
+      <h1 class="article-title">{% include "partials/title.html" %}</h1>
+      <div class="prose">{{ page.content | safe }}</div>
+      {% include "partials/pagenav.html" %}
     </div>
-    <div class="mb-4 font-medium w-max text-sm">
-      Posted on {{ page.date | date(format="%B %d, %Y") }}
-    </div>
-    <div class="post mb-4">{{ page.content | safe }}</div>
-  </div>
+  </article>
 {% endblock %}

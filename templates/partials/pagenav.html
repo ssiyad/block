@@ -1,0 +1,25 @@
+{# Zola names neighbours by sort order: in a date-sorted section, lower is newer. #}
+{% set older = page.higher %}
+{% set newer = page.lower %}
+{% if older or newer %}
+  <nav class="pagenav" aria-label="More posts">
+    {% if older %}
+      <a href="{{ older.permalink }}" rel="prev">
+        <span class="pagenav-label">← Older</span>
+        <span class="pagenav-title">{{ older.title }}</span>
+        {% if older.date %}
+          <span class="meta">{{ older.date | date(format="%B %d, %Y") }}</span>
+        {% endif %}
+      </a>
+    {% endif %}
+    {% if newer %}
+      <a class="newer" href="{{ newer.permalink }}" rel="next">
+        <span class="pagenav-label">Newer →</span>
+        <span class="pagenav-title">{{ newer.title }}</span>
+        {% if newer.date %}
+          <span class="meta">{{ newer.date | date(format="%B %d, %Y") }}</span>
+        {% endif %}
+      </a>
+    {% endif %}
+  </nav>
+{% endif %}
