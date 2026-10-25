@@ -81,14 +81,20 @@ source_url = "https://github.com/ssiyad/block"
 
 The text of `content/_index.md` is the bio on the home page.
 
-### Build-time data
+### Live and build-time data
 
-The GitHub and Bluesky cards and the Projects page fetch public APIs when
-Zola builds the site. A failed request hides the data, not the build.
+The GitHub and Bluesky cards load in the browser, each time the home page
+opens. The GitHub API allows 60 requests an hour for each visitor, and the
+card uses two or more. Without JavaScript, or when a request fails, the
+cards show only what the build put in them.
+
+The contribution grid and the Projects page fetch at build time: GitHub does
+not let browsers read the contribution calendar. A failed request hides the
+data, not the build.
 
 | Variable                    | Effect                                                        |
 | --------------------------- | ------------------------------------------------------------- |
-| `GITHUB_TOKEN`              | Lifts the GitHub API limit of 60 requests an hour.            |
+| `GITHUB_TOKEN`              | Lifts the build-time GitHub API limit for the Projects page.  |
 | `GITHUB_SHA` / `COMMIT_REF` | Shows the short commit in the footer, linked to `source_url`. |
 
 GitHub Actions sets `GITHUB_SHA` and Netlify sets `COMMIT_REF`.

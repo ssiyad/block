@@ -1,21 +1,17 @@
 {#
-  Public GitHub API at build time. A missing response hides the numbers,
-  not the card. GITHUB_TOKEN, when set, lifts the rate limit.
+  cards.js fills the stars, followers and, without configured repos, the
+  repo list from the public GitHub API when the page loads. The contribution
+  grid is built here: GitHub does not let browsers read the calendar.
 #}
 {% set gh = config.extra.github %}
-{% set token = get_env(name="GITHUB_TOKEN", default="") %}
-{% set headers = ["Authorization=Bearer " ~ token] if token else [] %}
-{% set api = "https://api.github.com/users/" ~ gh.username %}
-{% set user = load_data(url=api, format="json", headers=headers, required=false) %}
-{% set repos = load_data(url=api ~ "/repos?per_page=100&sort=pushed", format="json", headers=headers, required=false) or [] %}
 {# The calendar answers 406 to the text/plain Accept that format=plain sends #}
 {% set calendar = load_data(url="https://github.com/users/" ~ gh.username ~ "/contributions", format="plain", headers=["Accept=text/html"], required=false) %}
-{% set_global stars = 0 %}
-{% for repo in repos %}
-  {% set_global stars = stars + repo.stargazers_count %}
-{% endfor %}
 
-<article class="island card rise" style="--i: 3">
+<article
+  class="island card rise"
+  style="--i: 3"
+  data-github="{{ gh.username }}"
+>
   <div class="card-head">
     <span class="kicker">GitHub</span>
     <a class="meta" href="https://github.com/{{ gh.username }}"
@@ -23,17 +19,15 @@
     >
   </div>
   {% include "partials/cards/contributions.html" %}
-  {% if user %}
-    {% if not calendar %}
-      <p class="card-text">{{ user.bio or user.name or "" }}</p>
-    {% endif %}
-    <p class="card-stats">
-      <span>{{ stars }} stars</span>
-      <span>{{ user.followers }} followers</span>
-    </p>
+  {% if not calendar %}
+    <p class="card-text" data-gh-bio hidden></p>
   {% endif %}
-  <ul class="card-list">
-    {% if gh?.repos %}
+  <p class="card-stats" data-gh-stats hidden>
+    <span><span data-gh-stars></span> stars</span>
+    <span><span data-gh-followers></span> followers</span>
+  </p>
+  {% if gh?.repos %}
+    <ul class="card-list">
       {% for repo in gh.repos %}
         {% set full = repo.name if "/" in repo.name else gh.username ~ "/" ~ repo.name %}
         <li>
@@ -43,15 +37,8 @@
           </a>
         </li>
       {% endfor %}
-    {% else %}
-      {% for repo in [r for r in repos if not r.fork][:3] %}
-        <li>
-          <a href="{{ repo.html_url }}">
-            <span>{{ repo.name }}</span>
-            <span class="meta">{{ repo.language or "" }}</span>
-          </a>
-        </li>
-      {% endfor %}
-    {% endif %}
-  </ul>
+    </ul>
+  {% else %}
+    <ul class="card-list" data-gh-repos hidden></ul>
+  {% endif %}
 </article>

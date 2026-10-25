@@ -20,6 +20,9 @@
       {% endif %}
     </div>
   {% endif %}
+  {% if has_github or has_bluesky %}
+    <script src="{{ get_url(path='cards.js', cachebust=true) }}" defer></script>
+  {% endif %}
 
   {% if posts %}
     <section
