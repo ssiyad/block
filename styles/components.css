@@ -1,5 +1,5 @@
 @layer components {
-  /* Paper island: the deckled sheet is a pseudo element, so the filter never blurs text */
+  /* Paper island: the sheet is a pseudo element, so it can tilt without the text */
   .island {
     position: relative;
     isolation: isolate;
@@ -17,15 +17,10 @@
     box-shadow:
       inset 0 1px 0 var(--spec),
       var(--shadow);
-    filter: url(#deckle);
   }
 
   .pill {
     border-radius: 999px;
-  }
-
-  .pill::before {
-    filter: none;
   }
 
   /* Hand-drawn marks in Acid yellow */
