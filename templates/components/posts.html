@@ -1,0 +1,34 @@
+{# A post in a list. Pass num for the numbered home list. #}
+{% component post_row(post, num: string = "", date_format: string = "%B %d, %Y", i: integer = 0) %}
+  <a
+    class="row{% if num %}numbered{% endif %} fade-up"
+    href="{{ post.permalink }}"
+    style="--i: {{ i }}"
+  >
+    {% if num %}
+      <span class="row-num">{{ num }}</span>
+    {% endif %}
+    <span>
+      <span class="row-title">{{ post.title }}</span>
+      <span class="row-excerpt"
+        ><span>{{ <excerpt post={post} /> }}</span></span
+      >
+    </span>
+    {% if post.date %}
+      <time class="meta" datetime="{{ post.date }}">
+        {{ post.date | date(format=date_format) }}
+      </time>
+    {% endif %}
+  </a>
+{% endcomponent post_row %}
+
+{# The description, else the summary, else the start of the content. #}
+{% component excerpt(post, length: integer = 200) %}
+  {%- if post.description -%}
+    {{ post.description }}
+  {%- elif post.summary -%}
+    {{ post.summary | striptags | trim | truncate(length=length) }}
+  {%- else -%}
+    {{ post.content | striptags | trim | truncate(length=length) }}
+  {%- endif -%}
+{% endcomponent excerpt %}

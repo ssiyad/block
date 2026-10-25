@@ -1,0 +1,33 @@
+{% set here = current_path or "" %}
+{% set root = config.base_url | trim_end(pat="/") %}
+<nav class="nav" aria-label="Main">
+  <div class="island pill rise">
+    <ul>
+      {% for item in config.extra?.menu or [] %}
+        {% set external = item.url is starting_with(pat="http") %}
+        {% if external %}
+          {% set active = false %}
+        {% elif item.url == "/" %}
+          {% set active = here == "/" %}
+        {% else %}
+          {% set active = here is starting_with(pat=item.url) %}
+        {% endif %}
+        <li>
+          {% if active %}
+            <a
+              class="mark mark-circle"
+              href="{{ root ~ item.url }}"
+              aria-current="page"
+            >
+              {{ item.name }}{{ <circle_svg /> }}
+            </a>
+          {% else %}
+            <a href="{{ item.url if external else root ~ item.url }}"
+              >{{ item.name }}</a
+            >
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>

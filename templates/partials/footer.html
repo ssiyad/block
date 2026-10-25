@@ -1,0 +1,21 @@
+{% set footer = config.extra?.footer or {} %}
+{% set sha = get_env(name="GITHUB_SHA", default="") or get_env(name="COMMIT_REF", default="") %}
+<footer class="footer fade-up" style="--i: 6">
+  {% if footer?.license_text %}
+    <div>{{ footer.license_text | markdown(inline=true) | safe }}</div>
+  {% endif %}
+  <div class="meta">
+    Last updated {{ now() | date(format="%d %b %Y") }}
+    {%- if sha %}
+      ·
+      {% if footer?.source_url %}
+        <a class="sha" href="{{ footer.source_url }}/commit/{{ sha }}"
+          >{{ sha[:7] }}</a
+        >
+      {% else %}
+        <span class="sha">{{ sha[:7] }}</span>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% include "partials/crafted.html" %}
+</footer>

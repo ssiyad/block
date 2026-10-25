@@ -1,21 +1,4 @@
+{# Keeps the old page templates working until they move to base.html #}
 {% extends "base.html" %}
 
-{% block content %}
-  <div class="my-16 space-y-4">
-    <div class="space-y-4">
-      {% include "partials/header.html" %}
-      {% block main %}
-      {% endblock %}
-    </div>
-    <footer class="text-sm text-center pt-4 border-t-2 border-brand space-y-1">
-      <div>
-        {% block license_text %}
-          {% if config.extra.footer.license_text %}
-            {{ config.extra.footer.license_text }}
-          {% endif %}
-        {% endblock %}
-      </div>
-      {% include "partials/crafted.html" %}
-    </footer>
-  </div>
-{% endblock %}
+{% block main %}{% block subheading %}{% endblock %}{% endblock %}
