@@ -1,7 +1,7 @@
 {# A post in a list. Pass num for the numbered home list. #}
 {% component post_row(post, num: string = "", date_format: string = "%B %d, %Y", i: integer = 0) %}
   <a
-    class="row{% if num %}numbered{% endif %} fade-up"
+    class="{{ 'row numbered' if num else 'row' }} fade-up"
     href="{{ post.permalink }}"
     style="--i: {{ i }}"
   >

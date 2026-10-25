@@ -1,6 +1,6 @@
 {% set intro = config.extra?.intro or {} %}
 <section class="island rise" style="--i: 1" aria-label="Introduction">
-  <div class="intro{% if intro?.avatar_url %}has-plate{% endif %}">
+  <div class="{{ 'intro has-plate' if intro?.avatar_url else 'intro' }}">
     {% if intro?.avatar_url %}
       <figure class="plate">
         <img
