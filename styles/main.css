@@ -4,15 +4,43 @@
   --font-sans: "Geist", sans-serif;
   --font-mono: "Geist Mono", monospace;
   --font-head: "Arbutus Slab", var(--font-sans);
-  --color-brand: var(--color-indigo-200);
+
+  /* Acid Citric, https://github.com/acid-theme/acid */
+  --color-acid-red: #de5a48;
+  --color-acid-orange: #dd7b34;
+  --color-acid-yellow: #d9a441;
+  --color-acid-green: #a3ab2f;
+  --color-acid-aqua: #7cad76;
+  --color-acid-blue: #7d9cba;
+  --color-acid-purple: #c5839c;
+  --color-acid-text: #e2d6b6;
+  --color-acid-subtext1: #cabea7;
+  --color-acid-subtext0: #b4ab9b;
+  --color-acid-overlay2: #9f988a;
+  --color-acid-overlay1: #857d70;
+  --color-acid-overlay0: #6b665c;
+  --color-acid-surface2: #5b554a;
+  --color-acid-surface1: #49443b;
+  --color-acid-surface0: #35332c;
+  --color-acid-base: #1c1b19;
+  --color-acid-mantle: #121211;
+  --color-acid-crust: #060605;
+
+  --color-brand: var(--color-acid-yellow);
 }
 
 @layer base {
+  html {
+    color-scheme: dark;
+  }
   body {
-    @apply bg-black text-white/80 container max-w-3xl mx-auto px-4 sm:px-0;
+    @apply bg-acid-base text-acid-subtext1 container max-w-3xl mx-auto px-4 sm:px-0;
+  }
+  ::selection {
+    @apply bg-acid-surface1 text-acid-text;
   }
   a {
-    @apply hover:text-brand cursor-pointer text-white;
+    @apply hover:text-brand cursor-pointer text-acid-text;
   }
   .post {
     @apply leading-loose;
@@ -23,10 +51,10 @@
       @apply font-medium underline underline-offset-4;
     }
     code:not(pre code) {
-      @apply px-1 bg-stone-900 rounded-md text-sm;
+      @apply px-1 bg-acid-surface0 rounded-md text-sm;
     }
     pre {
-      @apply text-sm px-4 py-2 my-2 overflow-auto bg-stone-900!;
+      @apply text-sm px-4 py-2 my-2 overflow-auto bg-acid-mantle!;
     }
     h1,
     h2,
@@ -34,7 +62,7 @@
     h4,
     h5,
     h6 {
-      @apply font-head font-semibold mt-6 mb-2 text-lg text-white;
+      @apply font-head font-semibold mt-6 mb-2 text-lg text-acid-text;
     }
     ul,
     li {
@@ -50,7 +78,7 @@
       @apply font-medium;
     }
     blockquote {
-      @apply border-l-2 border-brand italic py-2 px-4 my-2 bg-stone-900;
+      @apply border-l-2 border-brand italic py-2 px-4 my-2 bg-acid-surface0;
     }
     img {
       @apply my-4 max-h-96 mx-auto;

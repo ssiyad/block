@@ -1,7 +1,8 @@
 # Block
 
-Pure black, blog focused theme for [Zola](https://www.getzola.org/), powered by
-[TailwindCSS](https://tailwindcss.com/).
+Blog focused theme for [Zola](https://www.getzola.org/), powered by
+[TailwindCSS](https://tailwindcss.com/), in the
+[Acid](https://github.com/acid-theme/acid) Citric colors.
 
 Demo: https://block-zola.netlify.app/
 
