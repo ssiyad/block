@@ -7,9 +7,6 @@
           src="{{ intro.avatar_url }}"
           alt="{{ intro?.name or config.title }}"
         />
-        {% if intro?.plate_label %}
-          <figcaption class="plate-label">{{ intro.plate_label }}</figcaption>
-        {% endif %}
       </figure>
     {% endif %}
     <div class="intro-body">

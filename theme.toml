@@ -36,7 +36,6 @@ name = ""
 role = ""
 # Leave empty for an intro without the photo plate
 avatar_url = ""
-plate_label = ""
 links = []
 
 # Leave username empty to hide the card.

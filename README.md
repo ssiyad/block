@@ -64,7 +64,6 @@ greeting = "Hello, I am"
 name = "Sabu Siyad"
 role = "Security Engineer at [Frappe](https://frappe.io)" # inline markdown
 avatar_url = "https://example.com/me.jpg" # empty hides the photo plate
-plate_label = "Plate I"
 links = [{ name = "GitHub", url = "https://github.com/ssiyad" }]
 
 [extra.github]   # empty username hides the card
