@@ -2,7 +2,7 @@ name = "Block"
 description = "Blog/Black theme for Zola"
 homepage = "https://github.com/ssiyad/block"
 license = "GPLv3"
-min_version = "0.21.0"
+min_version = "0.23.0"
 demo = "https://block-zola.netlify.app/"
 
 [author]

@@ -1,0 +1,11 @@
+{% component youtube(video_id: string, start_at: integer = 0) %}
+  <div>
+    <iframe
+      src="https://www.youtube.com/embed/{{ video_id }}?start={{ start_at }}"
+      class="w-full h-96 rounded-md"
+      title="YouTube video player"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+  </div>
+{% endcomponent youtube %}

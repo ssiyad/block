@@ -206,6 +206,7 @@ This will create a `dist` folder with and `index.js` file which contains the com
 
 ## Making it a valid action
 For making this Js file a valid action, we need to add an `action.yml` file. The action.yml for this action is like this
+{% raw %}
 ```yml
 name: 'Action Name'
 description: 'Action Descreption'
@@ -251,6 +252,7 @@ branding:
   icon: 'repeat'  
   color: 'green'
 ```
+{% endraw %}
 Here we're defining the Input variables to be loaded for the action in GitHub's runtime environemt. All these `default` data are taken from the response of the webhooks which are send by GitHub when a trigger event is occured. You can find out more in the [Action Documentation Here](https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context).
 
 ```yml
@@ -263,6 +265,7 @@ Here we are defining that this is a node action and should run in an environment
 ### Defining a workflow to test your action
 GitHub Action workflows are defined using the `.yml` syntax. Here is an example of a sample workflow for this action
 
+{% raw %}
 ```yml
 name: <Workflow Name>
 
@@ -285,6 +288,7 @@ jobs:
           token: ${{ secrets.token }}
           status: ${{ job.status }}
 ```
+{% endraw %}
 
 
 The Complete code for the bot is
