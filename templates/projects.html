@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{#
+  Front matter:
+    [extra]
+    all_url = "https://github.com/you?tab=repositories"
+    pinned = ["owner/repo"]       # stats from the GitHub API at build time
+    curated = [{ name, description, role, years, url }]
+#}
+
+{% block title %}
+  <title>{{ page.title }} · {{ config.title }}</title>
+{% endblock %}
+
+{% block description %}{{ page.description or config.description or "" }}{% endblock %}
+
+{% block main %}
+  {% set extra = page.extra %}
+  {% set token = get_env(name="GITHUB_TOKEN", default="") %}
+  {% set headers = ["Authorization=Bearer " ~ token] if token else [] %}
+
+  <div class="page-head rise">
+    <div>
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% if page.description %}
+        <p>{{ page.description }}</p>
+      {% endif %}
+    </div>
+    {% if extra?.all_url %}
+      <a class="btn" href="{{ extra.all_url }}">All repositories</a>
+    {% endif %}
+  </div>
+
+  {% if page.content %}
+    <div class="island article rise" style="--i: 1">
+      <div class="prose">{{ page.content | safe }}</div>
+    </div>
+  {% endif %}
+
+  {% if extra?.pinned %}
+    <section aria-labelledby="pinned">
+      <h2 class="kicker rule-label" id="pinned">Pinned</h2>
+      <div class="repos">
+        {% for name in extra.pinned %}
+          {% set repo = load_data(url="https://api.github.com/repos/" ~ name, format="json", headers=headers, required=false) %}
+          <a
+            class="island repo rise"
+            href="https://github.com/{{ name }}"
+            style="--i: {{ loop.index + 1 }}"
+          >
+            <span class="repo-head">
+              <span class="repo-name">{{ name | split(pat="/") | last }}</span>
+              {% if repo?.language %}
+                <span class="tag">{{ repo.language }}</span>
+              {% endif %}
+            </span>
+            <span class="repo-desc">{{ repo?.description or "" }}</span>
+            {% if repo %}
+              <span class="meta">
+                <span>{{ repo.stargazers_count }} stars</span>
+                <span>{{ repo.forks_count }} forks</span>
+              </span>
+            {% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if extra?.curated %}
+    <section aria-labelledby="curated">
+      <h2 class="kicker rule-label" id="curated">Hand-curated</h2>
+      <ul class="island curated rise" style="--i: 5">
+        {% for item in extra.curated %}
+          <li class="curated-row">
+            <span>
+              <a class="row-title" href="{{ item?.url or '#' }}"
+                >{{ item.name }}</a
+              >
+              <span class="card-text">{{ item?.description or "" }}</span>
+            </span>
+            <span class="meta">{{ item?.role or "" }}</span>
+            <span class="meta">{{ item?.years or "" }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endblock %}
