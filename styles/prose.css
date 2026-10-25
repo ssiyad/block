@@ -1,0 +1,219 @@
+@layer components {
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: 17.5px;
+    line-height: 1.65;
+    color: var(--subtext1);
+    text-align: justify;
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+
+  .prose > p:first-of-type::first-letter {
+    float: left;
+    padding: 8px 10px 0 0;
+    font-size: 76px;
+    font-weight: 600;
+    line-height: 0.78;
+    color: var(--yellow);
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text);
+    text-align: left;
+    scroll-margin-top: 24px;
+  }
+
+  .prose h1,
+  .prose h2 {
+    font-size: 28px;
+  }
+
+  .prose h3 {
+    font-size: 22px;
+  }
+
+  .prose :is(h4, h5, h6) {
+    font-size: 18px;
+  }
+
+  .prose a {
+    color: var(--yellow);
+    border-bottom: 1px solid currentColor;
+  }
+
+  .prose strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .prose :is(ul, ol) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 1.4em;
+    text-align: left;
+  }
+
+  .prose ul {
+    list-style: disc;
+  }
+
+  .prose ol {
+    list-style: decimal;
+  }
+
+  .prose li::marker {
+    color: var(--yellow);
+  }
+
+  .prose li :is(ul, ol) {
+    margin-top: 6px;
+  }
+
+  .prose blockquote {
+    margin: 4px 0;
+    padding: 14px 22px;
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--text);
+    text-align: left;
+    background: color-mix(in srgb, var(--yellow) 6%, transparent);
+    border-left: 2px solid var(--yellow);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .prose blockquote p + p {
+    margin-top: 0.6em;
+  }
+
+  .prose :not(pre) > code {
+    padding: 1px 6px;
+    font-size: 0.85em;
+    color: var(--text);
+    background: var(--surface0);
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  /* Giallo sets the colours inline; the island sets the ground */
+  .prose pre {
+    overflow: auto;
+    font-size: 13.5px;
+    line-height: 1.6;
+    text-align: left;
+    hyphens: none;
+    background: var(--mantle) !important;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface1) transparent;
+  }
+
+  .prose pre > code {
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    padding: 14px 16px;
+  }
+
+  /* File header from the fence: ```tsx,name=counter.tsx */
+  .prose pre > code[data-lang]::before {
+    content: attr(data-lang);
+    display: block;
+    margin: -14px -16px 14px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    color: var(--overlay2);
+    background: var(--island2);
+    border-bottom: 1px solid var(--hair);
+  }
+
+  .prose pre > code[data-name]::before {
+    content: attr(data-name) " · " attr(data-lang);
+  }
+
+  .prose img {
+    display: block;
+    max-width: 100%;
+    max-height: 480px;
+    margin-inline: auto;
+    padding: 8px;
+    background: var(--island2);
+    outline: 1px solid var(--hair);
+    border-radius: 4px;
+    filter: sepia(0.15) saturate(0.9);
+  }
+
+  .prose hr {
+    height: 1px;
+    margin: 12px 0;
+    background: var(--hair);
+    border: 0;
+  }
+
+  .prose table {
+    font-size: 15px;
+    text-align: left;
+    border-collapse: collapse;
+  }
+
+  .prose :is(th, td) {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--hair);
+  }
+
+  .prose th {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .prose iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+  }
+
+  .giallo-l {
+    display: inline-block;
+    min-height: 1lh;
+    width: 100%;
+  }
+
+  .giallo-ln {
+    display: inline-block;
+    min-width: 3ch;
+    margin-right: 0.4em;
+    padding: 0 0.4em;
+    text-align: right;
+    opacity: 0.6;
+    user-select: none;
+  }
+
+  @media (max-width: 720px) {
+    .prose {
+      gap: 14px;
+      font-size: 16.5px;
+      text-align: left;
+    }
+
+    .prose > p:first-of-type::first-letter {
+      font-size: 58px;
+    }
+
+    .prose h1,
+    .prose h2 {
+      font-size: 24px;
+    }
+
+    .prose blockquote {
+      font-size: 18px;
+    }
+  }
+}

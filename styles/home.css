@@ -1,0 +1,345 @@
+@layer components {
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .intro.has-plate {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+
+  /* Frontispiece photo, graded warm, fading into the island */
+  .plate {
+    position: relative;
+    min-height: 220px;
+    background: var(--mantle);
+    border-right: 1px solid var(--hair);
+  }
+
+  .plate img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.35) saturate(0.7) contrast(1.05) brightness(0.92);
+  }
+
+  .plate::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 70%,
+      color-mix(in srgb, var(--island) 55%, transparent)
+    );
+    pointer-events: none;
+  }
+
+  .plate-label {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    z-index: 1;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    /* Sits on the photo, so it stays light in both flavours */
+    color: #f4ecd8;
+    text-shadow: 0 1px 3px rgb(0 0 0 / 0.6);
+  }
+
+  .intro-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 40px 44px;
+  }
+
+  .intro-title {
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .intro-role {
+    font-size: 18px;
+    color: var(--subtext1);
+  }
+
+  .intro-role a {
+    color: var(--yellow);
+    border-bottom: 1px solid currentColor;
+  }
+
+  .intro-bio {
+    max-width: 62ch;
+    color: var(--subtext0);
+    text-align: justify;
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+
+  .intro-bio p + p {
+    margin-top: 0.75em;
+  }
+
+  .intro-bio a {
+    color: var(--yellow);
+  }
+
+  .intro-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 6px;
+  }
+
+  .intro-links a {
+    padding-bottom: 2px;
+    font-size: 15.5px;
+    color: var(--subtext1);
+    border-bottom: 1px solid var(--hair);
+  }
+
+  .intro-links a:hover {
+    color: var(--yellow);
+    border-color: var(--yellow);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 236px;
+    padding: 22px 24px;
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .card-head .kicker {
+    font-size: 11.5px;
+  }
+
+  .card-head .meta {
+    font-size: 12.5px;
+  }
+
+  .card-title {
+    align-self: flex-start;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .card-text {
+    flex: 1;
+    font-size: 14.5px;
+    color: var(--subtext0);
+    text-wrap: pretty;
+  }
+
+  .card-more {
+    font-size: 14px;
+    color: var(--yellow);
+  }
+
+  .card-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: 13px;
+    color: var(--subtext0);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .contrib {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 4px;
+  }
+
+  .contrib > div {
+    display: flex;
+    gap: 3px;
+  }
+
+  .contrib span {
+    flex: 1;
+    aspect-ratio: 1;
+    background: var(--level0);
+    border-radius: 1.5px;
+  }
+
+  .contrib [data-level="1"] {
+    background: var(--level1);
+  }
+
+  .contrib [data-level="2"] {
+    background: var(--level2);
+  }
+
+  .contrib [data-level="3"] {
+    background: var(--level3);
+  }
+
+  .contrib [data-level="4"] {
+    background: var(--yellow);
+  }
+
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+    font-size: 14px;
+    border-top: 1px solid var(--hair);
+  }
+
+  .card-list a {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-list .meta {
+    font-size: 12.5px;
+  }
+
+  .card-quote {
+    flex: 1;
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--subtext1);
+    white-space: pre-line;
+    text-wrap: pretty;
+  }
+
+  .card-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--overlay2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .posts {
+    padding: 30px 40px 26px;
+  }
+
+  .posts-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .posts-head h2 {
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  .posts-head a {
+    font-size: 14px;
+    color: var(--yellow);
+  }
+
+  @media (max-width: 720px) {
+    .intro.has-plate {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .plate {
+      height: 220px;
+      border-right: 0;
+      border-bottom: 1px solid var(--hair);
+    }
+
+    .plate img {
+      object-position: center 30%;
+    }
+
+    .plate::after {
+      background: linear-gradient(
+        180deg,
+        transparent 65%,
+        color-mix(in srgb, var(--island) 70%, transparent)
+      );
+    }
+
+    .intro-body {
+      gap: 12px;
+      padding: 24px 22px;
+    }
+
+    .intro-title {
+      font-size: 32px;
+      line-height: 1.08;
+    }
+
+    .intro-role {
+      font-size: 16px;
+    }
+
+    .intro-bio {
+      font-size: 15px;
+      text-align: left;
+    }
+
+    /* Links become tap-sized outlined buttons */
+    .intro-links {
+      gap: 8px;
+      margin-top: 0;
+    }
+
+    .intro-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 12px;
+      font-size: 13px;
+      border: 1px solid var(--hair);
+      border-radius: 6px;
+    }
+
+    .cards {
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 0;
+      padding: 18px 22px;
+    }
+
+    .card-title {
+      font-size: 22px;
+    }
+
+    .posts {
+      padding: 22px 22px 14px;
+    }
+
+    .posts-head h2 {
+      font-size: 22px;
+    }
+  }
+}

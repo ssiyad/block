@@ -1,0 +1,352 @@
+@layer components {
+  /* Paper island: the deckled sheet is a pseudo element, so the filter never blurs text */
+  .island {
+    position: relative;
+    isolation: isolate;
+    border-radius: 12px;
+  }
+
+  .island::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--island);
+    border: 1px solid var(--hair);
+    border-radius: inherit;
+    box-shadow:
+      inset 0 1px 0 var(--spec),
+      var(--shadow);
+    filter: url(#deckle);
+  }
+
+  .pill {
+    border-radius: 999px;
+  }
+
+  .pill::before {
+    filter: none;
+  }
+
+  /* Hand-drawn marks in Acid yellow */
+  .mark {
+    position: relative;
+    display: inline-block;
+  }
+
+  .mark > svg {
+    position: absolute;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .mark path {
+    fill: none;
+    stroke: var(--yellow);
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 1s 0.8s ease-out forwards;
+  }
+
+  .mark-underline > svg {
+    left: -2px;
+    bottom: -8px;
+    width: calc(100% + 4px);
+    height: 14px;
+  }
+
+  .mark-circle > svg {
+    left: -6px;
+    top: -5px;
+    width: calc(100% + 12px);
+    height: calc(100% + 10px);
+  }
+
+  .kicker {
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rule-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11.5px;
+  }
+
+  .rule-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--hair);
+  }
+
+  .meta {
+    font-size: 13.5px;
+    color: var(--overlay2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .inline-link {
+    color: var(--yellow);
+    border-bottom: 1px solid currentColor;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    border-radius: 6px;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+
+  .btn:hover {
+    color: var(--yellow);
+    background: color-mix(in srgb, var(--yellow) 12%, transparent);
+  }
+
+  .btn:active {
+    background: color-mix(in srgb, var(--yellow) 22%, transparent);
+  }
+
+  .btn-quiet {
+    color: var(--subtext1);
+    border-color: var(--hair);
+  }
+
+  .btn-ghost {
+    color: var(--subtext1);
+    border-color: transparent;
+  }
+
+  .tag {
+    padding: 2px 8px;
+    font-size: 11px;
+    color: var(--subtext0);
+    border: 1px solid var(--hair);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* Floating pill nav */
+  .nav {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .nav > .island {
+    pointer-events: auto;
+  }
+
+  .nav ul {
+    display: flex;
+    gap: 2px;
+    padding: 6px 8px;
+    font-size: 14.5px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .nav a {
+    display: block;
+    padding: 6px 14px;
+  }
+
+  .nav a[aria-current] {
+    color: var(--yellow);
+  }
+
+  /* A post in a list; the excerpt opens on hover */
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    gap: 16px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-top: 1px solid var(--hair);
+  }
+
+  .row.numbered {
+    grid-template-columns: 48px minmax(0, 1fr) 140px;
+  }
+
+  .row-num {
+    font-size: 13px;
+    color: var(--yellow);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .row-title {
+    display: block;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.25;
+    transition: color 0.2s;
+  }
+
+  .row-excerpt {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s var(--ease);
+  }
+
+  .row-excerpt > span {
+    overflow: hidden;
+    font-size: 14.5px;
+    color: var(--subtext0);
+    text-wrap: pretty;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .row:hover .row-title,
+  .row:focus-visible .row-title {
+    color: var(--yellow);
+  }
+
+  .row:hover .row-excerpt,
+  .row:focus-visible .row-excerpt {
+    grid-template-rows: 1fr;
+  }
+
+  .row:hover .row-excerpt > span,
+  .row:focus-visible .row-excerpt > span {
+    padding-top: 2px;
+    opacity: 1;
+  }
+
+  .row .meta {
+    text-align: right;
+  }
+
+  .pager {
+    display: flex;
+    justify-content: center;
+  }
+
+  .pager ul {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pager a,
+  .pager span {
+    display: block;
+    padding: 6px 13px;
+  }
+
+  .pager [aria-current] {
+    color: var(--yellow);
+  }
+
+  .pager .disabled {
+    color: var(--overlay1);
+  }
+
+  .pager .sep {
+    width: 1px;
+    height: 16px;
+    padding: 0;
+    background: var(--hair);
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 24px;
+    padding-top: 10px;
+    font-size: 13.5px;
+    color: var(--overlay2);
+    text-align: center;
+  }
+
+  .footer a {
+    color: var(--subtext0);
+  }
+
+  .footer a:hover {
+    color: var(--yellow);
+  }
+
+  .footer .sha {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+
+  @media (max-width: 720px) {
+    .nav {
+      top: 14px;
+    }
+
+    .nav ul {
+      gap: 0;
+      padding: 4px 5px;
+      font-size: 13px;
+    }
+
+    .nav a {
+      padding: 7px 9px;
+    }
+
+    .row,
+    .row.numbered {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 0;
+    }
+
+    .row-num,
+    .row-excerpt {
+      display: none;
+    }
+
+    .row-title {
+      font-size: 17px;
+    }
+
+    .row .meta {
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 12px;
+      padding-top: 8px;
+      font-size: 12.5px;
+    }
+  }
+
+  @media (hover: none) {
+    .row-excerpt {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,148 @@
+@layer components {
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    width: 100%;
+    height: 3px;
+    background: var(--yellow);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--yellow) 60%, transparent);
+    transform: scaleX(var(--progress, 0));
+    transform-origin: left;
+  }
+
+  .post-layout {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  .post-side {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13.5px;
+  }
+
+  .post-side .back {
+    color: var(--overlay2);
+  }
+
+  .post-side .kicker {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+
+  .post-side .meta {
+    margin-top: 10px;
+  }
+
+  .article {
+    padding: 44px 56px 40px;
+  }
+
+  .article-inner {
+    max-width: 720px;
+  }
+
+  .article .kicker {
+    margin-bottom: 12px;
+  }
+
+  .article-title {
+    margin-bottom: 22px;
+    font-size: 46px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .article-title .mark-circle > svg {
+    left: -8px;
+    top: -6px;
+    width: calc(100% + 16px);
+    height: calc(100% + 12px);
+  }
+
+  .pagenav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid var(--hair);
+  }
+
+  .pagenav a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pagenav .newer {
+    grid-column: 2;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .pagenav-label {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--overlay2);
+  }
+
+  .pagenav-title {
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  .pagenav .meta {
+    font-size: 13px;
+  }
+
+  @media (max-width: 900px) {
+    .post-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .post-side {
+      position: static;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 6px;
+    }
+
+    .post-side .toc,
+    .post-side .kicker {
+      display: none;
+    }
+
+    .post-side .meta {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .article {
+      padding: 28px 22px 26px;
+    }
+
+    .article-title {
+      font-size: 32px;
+    }
+
+    .pagenav {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pagenav .newer {
+      grid-column: 1;
+    }
+  }
+}

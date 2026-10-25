@@ -1,0 +1,81 @@
+/*
+ * Acid Citric (dark) and Lactic (light), https://github.com/acid-theme/acid
+ * Each role takes light-dark(lactic, citric), so the flavour follows
+ * color-scheme: the system by default, or one pinned with data-flavor.
+ * Acid does not define paper surfaces, so ground, islands and the
+ * contribution ramp come from the Block design: warm paper in Lactic.
+ */
+:root {
+  color-scheme: light dark;
+
+  --red: light-dark(#df2910, #de5a48);
+  --orange: light-dark(#bd560b, #dd7b34);
+  --yellow: light-dark(#9c6a0e, #d9a441);
+  --green: light-dark(#737914, #a3ab2f);
+  --aqua: light-dark(#4a8143, #7cad76);
+  --blue: light-dark(#4978a4, #7d9cba);
+  --purple: light-dark(#bc4d77, #c5839c);
+  --text: light-dark(#3a3117, #e2d6b6);
+  --subtext1: light-dark(#4f4430, #cabea7);
+  --subtext0: light-dark(#5f5647, #b4ab9b);
+  --overlay2: light-dark(#706a5c, #9f988a);
+  --overlay1: light-dark(#877e71, #857d70);
+  --overlay0: light-dark(#9a958a, #6b665c);
+  --surface2: light-dark(#b4ada2, #5b554a);
+  --surface1: light-dark(#cbc6bf, #49443b);
+  --surface0: light-dark(#e3e1dd, #35332c);
+  --mantle: light-dark(#e6e2da, #121211);
+
+  --ground: light-dark(#efece5, #1c1b19);
+  --island: light-dark(#fbfaf7, #262420);
+  --island2: light-dark(#f3f1ec, #2e2b26);
+  --hair: light-dark(rgb(26 25 23 / 0.14), rgb(226 214 182 / 0.13));
+  --spec: light-dark(rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.07));
+  --shadow:
+    0 1px 2px light-dark(rgb(40 30 10 / 0.08), rgb(0 0 0 / 0.4)),
+    0 28px 50px -27px light-dark(rgb(40 30 10 / 0.3), rgb(0 0 0 / 0.75));
+
+  --level0: light-dark(#ece8e0, #35332c);
+  --level1: light-dark(#e3d6a8, #4d4a2a);
+  --level2: light-dark(#d1b86a, #7d7a2e);
+  --level3: light-dark(#b58d2a, #b3942f);
+
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .7 0'/></filter><rect width='320' height='320' filter='url(%23n)'/></svg>");
+  --grain-opacity: 0.07;
+  --grain-blend: overlay;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+:root[data-flavor="citric"] {
+  color-scheme: dark;
+}
+
+:root[data-flavor="lactic"] {
+  color-scheme: light;
+}
+
+/* Grain is not a colour, so light-dark() cannot switch it */
+@media (prefers-color-scheme: light) {
+  :root:not([data-flavor="citric"]) {
+    --grain-opacity: 0.09;
+    --grain-blend: multiply;
+  }
+}
+
+:root[data-flavor="lactic"] {
+  --grain-opacity: 0.09;
+  --grain-blend: multiply;
+}
+
+@theme inline {
+  --font-sans: "Zilla Slab", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
+
+  --color-yellow: var(--yellow);
+  --color-text: var(--text);
+  --color-subtext1: var(--subtext1);
+  --color-subtext0: var(--subtext0);
+  --color-overlay2: var(--overlay2);
+  --color-hair: var(--hair);
+}

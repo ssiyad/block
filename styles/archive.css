@@ -1,0 +1,127 @@
+@layer components {
+  /* Posts index: sticky margin on the left, years on an island */
+  .archive {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .archive-side {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 8px 0;
+  }
+
+  .page-title {
+    align-self: flex-start;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .archive-blurb {
+    font-size: 14.5px;
+    color: var(--subtext0);
+    text-wrap: pretty;
+  }
+
+  .side-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 12px;
+    font-size: 14px;
+    color: var(--subtext0);
+    font-variant-numeric: tabular-nums;
+    border-left: 1px solid var(--hair);
+  }
+
+  .side-list [aria-current] {
+    color: var(--yellow);
+  }
+
+  .archive-side .btn {
+    align-self: flex-start;
+  }
+
+  .archive-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .years {
+    padding: 12px 36px 20px;
+  }
+
+  .year {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 20px;
+    padding: 22px 0 8px;
+    border-top: 1px solid var(--hair);
+    scroll-margin-top: 20px;
+  }
+
+  .year:first-child {
+    border-top: 0;
+  }
+
+  .year-label {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--yellow);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .year .row {
+    grid-template-columns: minmax(0, 1fr) 120px;
+    padding: 10px 0 14px;
+    border-top: 0;
+  }
+
+  .year .row-title {
+    font-size: 20px;
+  }
+
+  @media (max-width: 720px) {
+    .archive {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .archive-side {
+      position: static;
+      padding: 0 6px;
+    }
+
+    .page-title {
+      font-size: 32px;
+    }
+
+    .archive-side .side-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+    }
+
+    .years {
+      padding: 4px 22px 12px;
+    }
+
+    .year {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+      padding-top: 18px;
+    }
+
+    .year-label {
+      font-size: 22px;
+    }
+  }
+}
