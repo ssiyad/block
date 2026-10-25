@@ -8,7 +8,7 @@ Citric (dark) and Lactic (light) colors. The flavor follows the system.
 Motion (grain, rise-in, hand-drawn marks) stops when the system asks for
 reduced motion.
 
-Block needs Zola 0.23 or later.
+Block needs Zola 0.23.2 or later.
 
 Demo: https://block-zola.netlify.app/
 
