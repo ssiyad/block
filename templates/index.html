@@ -1,37 +1,44 @@
-{% extends "base_layout.html" %}
+{% extends "base.html" %}
 
 {% block main %}
-  <div class="space-y-4">
-    <div class="flex items-center gap-4">
-      <img
-        src="{{ config.extra.intro.avatar_url }}"
-        class="size-20 rounded-xl"
-      />
-      <div class="space-y-1">
-        <p class="font-medium text-acid-text">
-          {{ config.extra.intro.heading }}
-        </p>
-        <p class="font-medium text-sm">
-          {% block subheading %}
-            {{ config.extra.intro.subheading }}
-          {% endblock %}
-        </p>
-      </div>
+  {% set posts_section = get_section(path=config.extra?.posts_section or "_index.md") %}
+  {% set posts = posts_section.pages %}
+  {% include "partials/intro.html" %}
+
+  {% set has_github = config.extra?.github?.username %}
+  {% set has_bluesky = config.extra?.bluesky?.handle %}
+  {% if posts or has_github or has_bluesky %}
+    <div class="cards">
+      {% if posts %}
+        {% include "partials/cards/latest.html" %}
+      {% endif %}
+      {% if has_github %}
+        {% include "partials/cards/github.html" %}
+      {% endif %}
+      {% if has_bluesky %}
+        {% include "partials/cards/bluesky.html" %}
+      {% endif %}
     </div>
-    <div class="post">{{ section.content | safe }}</div>
-    <ul class="space-y-4 mb-4">
-      <div class="w-max text-xl font-semibold text-brand font-head">Posts</div>
-      {% for page in section.pages %}
-        <li class="space-y-1">
-          <a
-            class="block font-medium hover:underline underline-offset-4"
-            href="{{ page.permalink }}"
-          >
-            {{ page.title }}
-          </a>
-          <div class="text-sm">{{ page.date | date(format="%B %d, %Y") }}</div>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+  {% endif %}
+
+  {% if posts %}
+    <section
+      class="island posts rise"
+      style="--i: 5"
+      aria-labelledby="posts-title"
+    >
+      <div class="posts-head">
+        <h2 id="posts-title">{{ posts_section.title or "Posts" }}</h2>
+        {% if posts_section.path != "/" %}
+          <a href="{{ posts_section.permalink }}">All posts</a>
+        {% endif %}
+      </div>
+      <ol>
+        {% for post in posts[:config.extra?.home_posts or 7] %}
+          {% set num = ("0" ~ loop.index)[-2:] %}
+          <li>{{ <post_row post={post} num={num} i={loop.index0} /> }}</li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endif %}
 {% endblock %}

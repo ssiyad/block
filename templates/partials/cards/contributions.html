@@ -1,0 +1,25 @@
+{#
+  The last 26 weeks of contributions, from `calendar`: the public HTML
+  fragment GitHub serves to profile pages. Each weekday row opens with a
+  label cell, and each data-level in a row is one week. Sunday's row is
+  always full, so its length is the week count; slicing every row to it
+  also drops the legend.
+#}
+{% if calendar %}
+  {% set rows = (calendar | split(pat='ContributionCalendar-label" style="position: relative'))[1:] %}
+  {% set days = [[chunk[0] for chunk in (row | split(pat='data-level="'))[1:]] for row in rows] %}
+  {% set weeks = days[0] | length %}
+  <div
+    class="contrib"
+    role="img"
+    aria-label="Contributions in the last 26 weeks"
+  >
+    {% for row in days %}
+      <div>
+        {% for level in row[weeks - 26:weeks] %}
+          <span data-level="{{ level }}"></span>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

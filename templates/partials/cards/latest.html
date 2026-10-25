@@ -1,0 +1,16 @@
+{% set latest = posts[0] %}
+<article class="island card rise" style="--i: 2">
+  <div class="card-head">
+    <span class="kicker">Latest post</span>
+    {% if latest.date %}
+      <time class="meta" datetime="{{ latest.date }}">
+        {{ latest.date | date(format="%b %d, %Y") }}
+      </time>
+    {% endif %}
+  </div>
+  <a class="card-title" href="{{ latest.permalink }}">{{ latest.title }}</a>
+  <p class="card-text">{{ <excerpt post={latest} length={160} /> }}</p>
+  <a class="card-more" href="{{ latest.permalink }}">
+    Read · {{ latest.reading_time }} min
+  </a>
+</article>

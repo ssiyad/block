@@ -1,0 +1,48 @@
+{% set intro = config.extra?.intro or {} %}
+<section class="island rise" style="--i: 1" aria-label="Introduction">
+  <div class="intro{% if intro?.avatar_url %}has-plate{% endif %}">
+    {% if intro?.avatar_url %}
+      <figure class="plate">
+        <img
+          src="{{ intro.avatar_url }}"
+          alt="{{ intro?.name or config.title }}"
+        />
+        {% if intro?.plate_label %}
+          <figcaption class="plate-label">{{ intro.plate_label }}</figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+    <div class="intro-body">
+      {% if intro?.kicker %}
+        <p class="kicker">{{ intro.kicker }}</p>
+      {% endif %}
+      <h1 class="intro-title">
+        {% if intro?.name %}
+          {{ intro?.greeting or "" }}
+          <span class="mark mark-underline"
+            >{{ intro.name }}{{ <underline_svg /> }}</span
+          >
+        {% else %}
+          <span class="mark mark-underline"
+            >{{ config.title }}{{ <underline_svg /> }}</span
+          >
+        {% endif %}
+      </h1>
+      {% if intro?.role %}
+        <p class="intro-role">
+          {{ intro.role | markdown(inline=true) | safe }}
+        </p>
+      {% endif %}
+      {% if section.content %}
+        <div class="intro-bio">{{ section.content | safe }}</div>
+      {% endif %}
+      {% if intro?.links %}
+        <ul class="intro-links">
+          {% for link in intro.links %}
+            <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</section>

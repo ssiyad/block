@@ -1,0 +1,37 @@
+{# Latest own post (not a repost or reply) from the public Bluesky API, at build time. #}
+{% set handle = config.extra.bluesky.handle %}
+{%
+  set feed = load_data(
+    url="https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?filter=posts_no_replies&limit=20&actor=" ~ handle,
+    format="json",
+    required=false
+  )
+%}
+{% set own = [item.post for item in feed.feed if not item?.reason and item.post.record.text] if feed else [] %}
+
+<article class="island card rise" style="--i: 4">
+  <div class="card-head">
+    <span class="kicker">Bluesky</span>
+    <a class="meta" href="https://bsky.app/profile/{{ handle }}"
+      >@{{ handle }}</a
+    >
+  </div>
+  {% if own %}
+    {% set post = own[0] %}
+    {% set rkey = post.uri | split(pat="/") | last %}
+    <a
+      class="card-quote"
+      href="https://bsky.app/profile/{{ handle }}/post/{{ rkey }}"
+    >
+      “{{ post.record.text | truncate(length=280) }}”
+    </a>
+    <div class="card-foot">
+      <time datetime="{{ post.record.createdAt }}">
+        {{ post.record.createdAt | date(format="%b %d, %Y") }}
+      </time>
+      <span>{{ post.replyCount }} replies · {{ post.likeCount }} likes</span>
+    </div>
+  {% else %}
+    <p class="card-quote">Nothing posted yet.</p>
+  {% endif %}
+</article>
