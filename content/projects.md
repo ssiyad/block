@@ -5,9 +5,9 @@ template = "projects.html"
 
 [extra]
 all_url = "https://github.com/ssiyad?tab=repositories"
-pinned = ["ssiyad/block", "acid-theme/acid", "getzola/zola"]
+pinned = ["ssiyad/block", "getzola/zola"]
 curated = [
   { name = "Block", description = "Zola theme, the bones of this site", role = "Author · maintainer", years = "2025 →", url = "https://github.com/ssiyad/block" },
-  { name = "Acid", description = "A warm colour palette with dark and light flavours", role = "Author", years = "2025 →", url = "https://github.com/acid-theme/acid" },
+  { name = "Acid", description = "A warm colour palette with dark and light flavours. Archived.", role = "Author", years = "2025 – 2026", url = "https://github.com/acid-theme/acid" },
 ]
 +++
